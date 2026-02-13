@@ -1,0 +1,38 @@
+---
+# init conatiner doc - https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+# Deployment for tomcat
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vproapp
+  labels:
+    app: vproapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vproapp   
+  template:
+    metadata:
+      labels:
+        app: vproapp
+    spec:       
+      containers:
+      - name: vproapp
+        image: kumarsaichandra37/myfirst_devops:app
+        ports:
+        - name: vproapp-port
+          containerPort: 8080
+    # optional init container to check the availability of the services before starting the main application container. This ensures that the application container only starts after the required services (vprocache01 and vprodb) are available and can be accessed by the application. The init containers use a simple loop to check for the availability of the services using nslookup, and they will keep checking until the services are available before allowing the main application container to start.
+    initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
+      - name: init-mydb
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
+      - name: init-rabbitmq
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup vpromq01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
+
+        

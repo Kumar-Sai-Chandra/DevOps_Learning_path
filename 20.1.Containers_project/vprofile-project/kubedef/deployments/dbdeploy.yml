@@ -1,0 +1,48 @@
+---
+# dbdeploy doc - https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiversion: app/v1
+kind: Deployment
+metadata:
+  name: vprodb
+  labels:
+    app: vprodb
+spec:
+  replicas: 1  # Specifies that we want to run one replica of the MySQL database. This means that there will be one pod running the MySQL container.
+  selector:
+    matchLabels:
+      app: vprodb
+  template:     # The template section defines the pod template that will be used to create the pods for the deployment. It includes metadata and specifications for the containers that will run in the pods.
+    metadata:
+      labels:
+        app: vprodb
+    spec:     # The spec section defines the specifications for the pod, including the containers that will run in the pod, the volumes that will be used, and any init containers that need to run before the main container starts.
+      containers:
+        - name: vprodb
+          image: kumarsaichandra37/myfirst_devops:db
+          ports:
+            - name: vprodb-port
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+            # The value is fetched from the secrets file.
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: db-password
+          # The volumeMounts section specifies that the container should mount the persistent volume at the path /var/lib/mysql, which is where MySQL stores its data.
+          volumeMounts:
+            - name: db-pv-storage
+              mountPath: /var/lib/mysql
+      # The volumes section specifies that the deployment should use a persistent volume, which is defined in the dbpvc.yml file. This allows the MySQL data to be stored persistently, even if the pod is restarted or rescheduled to a different node.        
+      volumes:
+        - name: db-pv-storage
+          persistentVolumeClaim:
+            claimName: db-pv-claim
+      # The initContainers section specifies an init container that runs before the main container starts. In this case, the init container uses the busybox image to remove the lost+found directory from the MySQL data directory. This is necessary because the lost+found directory can cause issues with MySQL when it tries to access the data directory.
+      initContainers:
+        - name: busybox
+          image: busybox:latest
+          command: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+            - name: db-pv-storage
+              mountPath: /var/lib/mysql

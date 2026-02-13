@@ -1,0 +1,17 @@
+---
+apiversion: v1
+kind: Service
+# as per the application.profile, we are using memcached as the caching layer for our application. The service defined in this file will expose the memcached deployment to other components within the Kubernetes cluster, allowing them to communicate with the memcached pods.
+metadata:
+  name: vprocache01  # The name of the service is vprocache01, which is used to identify the service within the Kubernetes cluster.
+
+spec:
+  selector:
+    app: vpromc   # The selector field is used to specify the labels that the service will use to select the pods that it will route traffic to. In this case, the service will route traffic to any pod that has the label app: vpromc.
+  ports:  # The ports field specifies the ports that the service will expose. In this case, the service will expose port 11211, which is the default port for Memcached.
+    - protocol: TCP
+      port: 11211
+      targetPort: vpromc-port # The targetPort field specifies the port on the pod that the service will route traffic to. In this case, the service will route traffic to the port named vpromc-port, which is defined in the mcdep.yml file.
+      
+  type: ClusterIP  # The type field specifies the type of service. In this case, we are using ClusterIP, which means that the service will be accessible only within the cluster. This is appropriate for a database service, as it should not be exposed to the outside world.
+

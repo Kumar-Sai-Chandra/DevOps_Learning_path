@@ -1,0 +1,7 @@
+init conatiners - https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+
+deployment doc - https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+persistance volume - https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+
+ingress - https://kubernetes.io/docs/concepts/services-networking/ingress/

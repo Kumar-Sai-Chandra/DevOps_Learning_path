@@ -1,0 +1,16 @@
+---
+apiversion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pv-claim
+  labels:
+    app: vprodb
+spec:
+  # accessModes specifies the access mode for the PersistentVolumeClaim. In this case, we are using ReadWriteOnce, which means that the volume can be mounted as read-write by a single node.
+  accessModes:
+    - ReadWriteOnce
+  resources:  
+    requests:
+      storage: 3Gi  # Request 3Gi of storage for the PersistentVolumeClaim. This is the amount of storage that the claim will request from the cluster.
+  # storageClassName is used to specify the storage class for the PersistentVolumeClaim. In this case, we are using the default storage class provided by the Kubernetes cluster.
+  storageClassName: default 

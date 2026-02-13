@@ -1,0 +1,30 @@
+---
+
+apiversion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vprofile-ingress
+  # Documentation:
+  # The following annotation is used in the Ingress resource configuration for a Kubernetes cluster.
+  # 
+  # - `nginx.ingress.kubernetes.io/use-regex: "true"`: This annotation enables the use of regular expressions in the path definitions of the Ingress rules.
+  #   This allows for more flexible and powerful routing configurations, enabling the matching of complex URL patterns.
+  #   By setting this annotation to "true", users can define paths that match multiple routes based on regex patterns,
+  #   enhancing the ability to manage traffic to different services based on specific URL criteria.
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: vprofile.hkhinfotech.xyz # Replace with your domain name whicjh is from godaddy
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vprofile-service
+            port:
+              number: 8080
+
+

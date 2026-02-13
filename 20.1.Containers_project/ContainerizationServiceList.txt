@@ -21,3 +21,7 @@ docker engine reference
 
 /root/.docker/config.json - here the credentials of docker hub are stored
 
+
+Microservices project
+https://github.com/devopshydclub/emartapp
+All the docker files are already created check the code for the understanding.

@@ -1,0 +1,17 @@
+---
+apiversion: v1
+kind: Service
+metadata:
+  name: vprodb  # The name of the service is vprodb, which is used to identify the service within the Kubernetes cluster.
+  labels:
+    app: vprodb
+spec:
+  selector:
+    app: vprodb   # The selector field is used to specify the labels that the service will use to select the pods that it will route traffic to. In this case, the service will route traffic to any pod that has the label app: vprodb.
+  ports:  # The ports field specifies the ports that the service will expose. In this case, the service will expose port 3306, which is the default port for MySQL.
+    - protocol: TCP
+      port: 3306
+      targetPort: vprodb-port # The targetPort field specifies the port on the pod that the service will route traffic to. In this case, the service will route traffic to the port named vprodb-port, which is defined in the dbdeploy.yml file.
+      
+  type: ClusterIP  # The type field specifies the type of service. In this case, we are using ClusterIP, which means that the service will be accessible only within the cluster. This is appropriate for a database service, as it should not be exposed to the outside world.
+

@@ -1,0 +1,18 @@
+---
+apiversion: v1
+kind: Service
+#this is frontend service, which means metadata should match the application.properties.
+metadata:
+  name: vpromq01  # The name of the service is vpromq01, which is used to identify the service within the Kubernetes cluster.
+
+#this is backend service, which means that it will route traffic to the pods that are running the RabbitMQ application. The service will use the labels defined in the rmqdeploy.yml file to select the appropriate pods to route traffic to.
+spec:
+  selector:
+    app: vprormq   # The selector field is used to specify the labels that the service will use to select the pods that it will route traffic to. In this case, the service will route traffic to any pod that has the label app: vprormq.
+  ports:  # The ports field specifies the ports that the service will expose. In this case, the service will expose port 5672, which is the default port for RabbitMQ.
+    - protocol: TCP
+      port: 5672
+      targetPort: vprormq-port # The targetPort field specifies the port on the pod that the service will route traffic to. In this case, the service will route traffic to the port named vprormq-port, which is defined in the rmqdeploy.yml file.
+      
+  type: ClusterIP  # The type field specifies the type of service. In this case, we are using ClusterIP, which means that the service will be accessible only within the cluster. This is appropriate for a database service, as it should not be exposed to the outside world.
+

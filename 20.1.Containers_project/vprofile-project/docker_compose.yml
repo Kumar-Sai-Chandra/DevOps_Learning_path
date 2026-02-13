@@ -5,7 +5,7 @@ services:
     # Build the database image from the specified Dockerfile path 
     build: 
       context: ./Docker-files/db
-    # image name for the database service as docker hub accountname/image-name 
+    # image name for the database service as docker hub accountname/repository-name:tag(image name)
     image: kumarsaichandra37/myfirst_devops:db
     # container name from dbimage
     container_name: vprodb
@@ -42,7 +42,7 @@ services:
     # build the application image from the specified Dockerfile
     build: 
       context: ./Docker-files/app
-    # image name for the application service as docker hub accountname/image-name
+    # image name for the application service as docker hub accountname/repository-name:tag(image name)
     image: kumarsaichandra37/myfirst_devops:app
     # container name from appimage
     container_name: vproapp
@@ -56,7 +56,7 @@ services:
     # build the web server image from the specified Dockerfile
     build: 
       context: ./Docker-files/web
-    # image name for the web server service as docker hub accountname/image-name
+    # image name for the web server service as docker hub accountname/repository-name:tag(image name)
     image: kumarsaichandra37/myfirst_devops:web
     # container name from webimage
     container_name: vproweb
@@ -64,6 +64,7 @@ services:
       - "80:80"
 
 volumes:
+  # Define named volumes for database and application data persistence
    vprodbdata: {}
    vproappdata: {}
   
