@@ -1,0 +1,27 @@
+$ sudo apt update
+$ sudo apt install software-properties-common
+$ sudo add-apt-repository --yes --update ppa:ansible/ansible
+$ sudo apt install ansible
+
+https://docs.ansible.com/projects/ansible/latest/installation_guide/installation_distros.html
+
+inventory file documentation
+https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html
+
+YAML syntax doc
+https://docs.ansible.com/projects/ansible/latest/reference_appendices/YAMLSyntax.html
+
+Ad hoc commands doc
+https://docs.ansible.com/projects/ansible/latest/command_guide/intro_adhoc.html
+
+Ansible playbook doc
+https://docs.ansible.com/projects/ansible/latest/
+
+ANsible modules doc
+https://docs.ansible.com/projects/ansible/latest/collections/index_module.html
+
+ansible config file doc
+https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html
+
+ansible variables doc
+https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_variables.html

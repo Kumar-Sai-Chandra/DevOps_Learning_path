@@ -1,0 +1,21 @@
+---
+- name: Understanding vars
+  hosts: all
+  become: yes
+  # gather_facts: False  # disabling fact gathering to avoid any conflicts with variables
+  vars:
+    USRNM: playuser
+    COMM: variable from playbook
+  tasks:
+    - name: create user # create user using variables defined in playbook vars
+      ansible.builtin.user:
+        name: "{{USRNM}}"
+        comment: "{{COMM}}"
+      register: usrout # registering output of this task to usrout variable
+
+# printing the registered variable values name and comment
+    - debug: 
+        var: usrout.name
+
+    - debug: 
+        var: usrout.comment

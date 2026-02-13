@@ -1,0 +1,4 @@
+# group variables 
+dbname: sky
+dbuser: pilot
+dbpass: aircraft

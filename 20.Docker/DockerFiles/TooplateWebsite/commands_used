@@ -1,0 +1,28 @@
+login to the ubuntu instance, make a folder 
+$ mkdir (project)
+$ wget (https://docs.docker.com/reference/dockerfile) application link
+install unzip and unzip the file
+$ sudo apt install unzip -y
+$ unzip (filename)
+cd into the unzip folder and tar the files because we cannot extract the zip folder in image
+$ cd (filename)
+$ tar czvf (build_image).tar.gz * # this command will tar the files to a .tar folder
+$ mv (build_image).tar.gz ../       # this command moves the folder to one level up
+remove the zip and unzip files as we have the tar file
+now move the build_image to project
+$ mv (build_image).tar.gz project/
+inside prokect folder write the Dockerfile
+$ vim DockerFile (see the dockerfile and edit it)
+after completion of Dockerfile build the image
+$ docker build -t (build_image)img .    # in place of . we need to give the path if the file is in other location
+now test the image by building a container using the image
+$ docker run -d --name (mywebsite) -p 9080:80 (build_image)img 
+after the container created, test the application by taking public ip and port (19.173.153.75:9080) this ip should be working in chrome.
+
+now we can push this image to publish in docker hub
+create an accont in docker hub
+$ docker login (give the username and password)
+to push the image the image name should be (username)/(build_image)img (just build the image like this)
+$ docker push (username)/(build_image)img  (this command will push the image)
+we can check the image in docker hub
+

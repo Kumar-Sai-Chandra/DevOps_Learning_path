@@ -1,0 +1,6 @@
+build the image of the Dockerfile
+$ docker build -t (printer:v3) (path) # this will build the image
+
+run the Dockerfile 
+$ docker run printer:v3     (this we print the default hello argumnet given in docker file)
+$ docker run printer:v3 Welcome to the world    (this will override the deault argument and print the given argument)

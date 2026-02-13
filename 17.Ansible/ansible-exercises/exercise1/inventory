@@ -1,0 +1,6 @@
+all:
+  hosts:
+    web01:
+      ansible_host: 172.31.31.178 # Replace with your instance private IP
+      ansible_user: ec2-user  # Replace with your instance username which is instance OS dependent
+      ansible_ssh_private_key_file: clientkey.pem  # Replace with your SSH private key file

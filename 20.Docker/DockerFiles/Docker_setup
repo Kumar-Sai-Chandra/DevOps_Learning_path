@@ -1,0 +1,16 @@
+Docker installation Doc for ubuntu linux vm
+https://docs.docker.com/engine/install/ubuntu/
+
+
+Add ubuntu user into docker group
+    sudo usermod -a -G docker ubuntu
+
+docker images
+https://hub.docker.com/search?badges=official
+
+
+Dockerfile reference doc
+https://docs.docker.com/reference/dockerfile    
+
+docker compose doc
+https://docs.docker.com/compose

@@ -1,0 +1,28 @@
+all:
+  hosts:
+    web01:
+      ansible_host: 172.31.31.178
+    web02:
+      ansible_host: 172.31.22.225
+    db01:
+      ansible_host: 172.31.19.215
+
+  children:
+    webservers:
+      hosts:
+        web01:
+        web02:
+    dbservers:
+      hosts:
+        db01:
+    dc_oregon:
+      children:
+        webservers:
+        dbservers:
+#using variables to avoid repetition
+      vars:
+        ansible_user: ec2-user
+        ansible_ssh_private_key_file: clientkey.pem
+
+
+#need to cehck weather the vars is going to work even when i run the playbook for only web server or db server

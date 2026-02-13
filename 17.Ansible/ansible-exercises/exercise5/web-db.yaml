@@ -1,0 +1,40 @@
+# Ansible playbook to set up webservers and dbservers
+---
+- name: Webserver setup
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Install httpd
+      ansible.builtin.yum: 
+        name: httpd
+        state: present
+
+    - name: Start service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes 
+
+- name: DBserver setup
+  hosts: dbservers
+  become: yes
+  tasks:
+    - name: Install mariadb-server
+      ansible.builtin.yum:
+        name: mariadb-server
+        state: present
+
+    - name: Start mariadb service
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+        enabled: yes 
+
+
+#if we want to remove the httpd use the below command
+#ansible webservers -m yum -a "name=httpd state=absent" -b -i inventory 
+
+# if we add -v at the end of the command it will give more verbose output more clear output
+# if we add --syntax-check at the end of the command it will check for syntax errors without making any changes, if playbook name is the output then we can decide there is no syntax error
+# ansible-playbook web-db.yaml -i inventory --syntax-check  
+#if -C is added it will do a dry run without making any changes, we cannot blindly trust the dry run.

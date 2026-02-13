@@ -1,0 +1,19 @@
+docker ps       # it gives the running containers
+docker ps -a    # it gives the running and dead containers
+docker images   # shows all the images in the instance
+docker pull nginx   # this pulls the image from docker repo
+docker pull nginx:mainline-alpine3.23-perl      #this pulls the tag of the nginx
+docker run --name myweb -p 7090:80 -d nginx     #this will create a container using nginx image.
+docker stop myweb (we can give name or container id) # this will stop the container.
+cd /var/lib/docker/containers   #here we have the container information.
+du -sh (container id)   # this gives the container size.
+docker exec -it myweb /bin/bash     #this will attch us to the contsiner.
+docker rm (container)       # to remove container
+docker rmi (image)          # to remove image
+docker inspect (image name) #output of metadata of image in json format
+docker logs (container)     #output of the process running to create the container
+docker run --name (mydb) -v /my/own/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:5.7                  #taking backup of the data
+docker volume create (kumardb) # create the volume in /var/lib/docker/volumes/
+docker run --name (mydb) -v kumardb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:5.7
+
+ps -ef # this command on host machine(ubuntu) will give the running directories
