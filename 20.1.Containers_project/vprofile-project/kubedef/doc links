@@ -5,3 +5,11 @@ deployment doc - https://kubernetes.io/docs/concepts/workloads/controllers/deplo
 persistance volume - https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 
 ingress - https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+
+
+kops command to create cluster - https://kops.sigs.k8s.io/getting_started/aws/
+kops create cluster --name=kubevpro.groophy.in \ 
+--state=s3://vprofile-kop-states --zones=us-east-2a,us-east-2b \ 
+--node-count=2 --node-size=t3.small --master-size=t3.medium --dns-zone=kubevpro.groophy.in \ 
+--node-volume-size=8 --master-volume-size=8
